@@ -2,7 +2,7 @@ import { createTransferCheckedInstruction, getAccount, getAssociatedTokenAddress
 import type { Commitment, Connection, PublicKey } from '@solana/web3.js';
 import { LAMPORTS_PER_SOL, SystemProgram, Transaction, TransactionInstruction } from '@solana/web3.js';
 import BigNumber from 'bignumber.js';
-import { MEMO_PROGRAM_ID, SOL_DECIMALS, TEN } from './constants.js';
+import { MEMO_PROGRAM_ID, SOL_DECIMALS, TEN } from './constants';
 import type { Amount, Memo, Recipient, References, SPLToken } from './type';
 
 // Thrown when a Solana Pay transfer transaction can't be created from the fields provided.
