@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 function Header() {
   return (
@@ -13,6 +14,7 @@ function Header() {
                     <li>Checkout</li>
                     <li>Checkout</li>
                 </ul>
+                <button onClick={() => signIn()}>login</button>
             </nav>
         </div>
     </div>

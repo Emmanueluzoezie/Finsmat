@@ -4,11 +4,23 @@ import { createContext, Dispatch, SetStateAction, useContext, useState } from "r
 interface IstateContext {
     sidebar: boolean
     setSidebar: Dispatch<SetStateAction<boolean>>
+    paymentType: boolean
+    setPaymentType: Dispatch<SetStateAction<boolean>>
+    showCode: boolean
+    setShowCode: Dispatch<SetStateAction<boolean>>
+    showCheckout: boolean,
+    setShowCheckout: Dispatch<SetStateAction<boolean>>
 }
 
 const initialState = {
     sidebar: false,
     setSidebar: () => false,
+    paymentType: false,
+    setPaymentType: () => false,
+    showCode: false,
+    setShowCode: () => false,
+    showCheckout: false,
+    setShowCheckout: () => false,
 
 }
 
@@ -20,12 +32,15 @@ interface Childern {
 
 export const ContextProvider: React.FC<Childern> = ({ children }) => {
     const [sidebar, setSidebar] = useState<boolean>(false)
+    const [paymentType, setPaymentType] = useState<boolean>(false)
+    const [showCode, setShowCode] = useState<boolean>(false)
+    const [showCheckout, setShowCheckout] = useState<boolean>(false)
 
 
     return (
         <StateContext.Provider value={{
             sidebar,
-            setSidebar
+            setSidebar, paymentType, setPaymentType, showCode, setShowCode, showCheckout, setShowCheckout
         }}>
             {children}
         </StateContext.Provider>
