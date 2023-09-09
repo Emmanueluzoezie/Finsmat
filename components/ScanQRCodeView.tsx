@@ -3,11 +3,15 @@ import React, { useEffect, useRef } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useContextState } from '../context/context';
 
-const SOLANA_PAY_URL = "solana:https://solana-bounty-sigma.vercel.app/api/transactions";
 
 function ScanCodeView() {
     const qrRef = useRef<HTMLDivElement | null>(null);
     const { setShowCode, showCode } = useContextState()
+    const amount = 0
+    const userId = 23
+    const receiverPublicKey = process.env.RECIEVER_PUBLIC_KEY
+    
+    const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions?amount=${amount}&userId=${userId}&receiverPublicKey=${receiverPublicKey}`;
 
     useEffect(() => {
         const qr = createQR(SOLANA_PAY_URL, 250, 'white', 'black');

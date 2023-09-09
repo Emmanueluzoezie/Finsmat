@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Connection, PublicKey } from '@solana/web3.js';
+import BigNumber from 'bignumber.js';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createTransfer } from '../../utiles/createTransfer';
 
@@ -30,8 +31,10 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Solana connection
   const connection = new Connection('https://api.mainnet-beta.solana.com'); // Update the URL if you're using a different network
 
-  // Get sender and recipient public keys from request body
-  const { senderPublicKey: senderKey, recipientPublicKey: recipientKey, amount } = req.body;
+  const senderKey = req.body?.account;
+
+  // Get sender and recipient public keys and amount from request body
+  const { receiverPublicKey: recipientKey, amount, userId } = req.body;
 
   // Validate the keys and amount
   if (!senderKey || !recipientKey || !amount) {
@@ -48,7 +51,8 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
       senderPublicKey,
       {
         recipient: recipientPublicKey,
-        amount: amount,
+        amount: new BigNumber(amount),
+        memo: userId,
       }
     );
 
