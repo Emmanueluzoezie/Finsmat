@@ -25,5 +25,5 @@ const get = async (req: NextApiRequest,
 };
 
 const post = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("yes is working")
+  console.log("yes is working", res)
 };
