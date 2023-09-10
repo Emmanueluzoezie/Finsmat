@@ -1,4 +1,5 @@
-import type { PublicKey } from '@solana/web3.js';
+
+import { PublicKey } from '@solana/web3.js';
 import type BigNumber from 'bignumber.js';
 
 export type Recipient = PublicKey;

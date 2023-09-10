@@ -9,9 +9,9 @@ function ScanCodeView() {
     const { setShowCode, showCode } = useContextState()
     const amount = 0
     const userId = 23
-    const receiverPublicKey = process.env.RECIEVER_PUBLIC_KEY
+    const productName = "purchase item for solana bounty"
     
-    const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions?amount=${amount}&userId=${userId}&receiverPublicKey=${receiverPublicKey}`;
+    const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions?amount=${amount}&userId=${userId}&product=${productName}`;
 
     useEffect(() => {
         const qr = createQR(SOLANA_PAY_URL, 250, 'white', 'black');
