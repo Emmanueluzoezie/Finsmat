@@ -11,14 +11,14 @@ function Header() {
 
   return (
     <div className='text-white border-gray-500 border-b-2'>
-        <div className='flex justify-between p-4'>
+        <div className='flex justify-between p-6 md:px-10'>
             <div>
                 <h2>Solana bounty</h2>
             </div>
-            <nav className='flex space-x-4'>
+            <nav className='flex space-x-4 md:space-x-8'>
                 <div className='flex space-x-2'>
                     <h2>Register</h2>
-                      <div className='relative pt-2' onClick={() => setShowCheckout(!showCheckout)}>
+                      <div className='relative pt-2 cursor-pointer' onClick={() => setShowCheckout(!showCheckout)}>
                         <FaShoppingCart className='text-xl'/>
                         <h2 className='absolute top-[-8px] text-[#943deb] text-[18px] font-bold pl-1'>0</h2>
                     </div>

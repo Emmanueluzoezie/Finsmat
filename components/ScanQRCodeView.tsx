@@ -26,7 +26,7 @@ function ScanCodeView() {
 
     return (
         <div className='flex flex-col justify-center items-center'>
-            <div className='w-fit absolute top-10 left-10 cursor-pointer hover:bg-gray-200 p-2 rounded-full' onClick={() => setShowCode(false)}>
+            <div className='w-fit absolute top-7 left-4 cursor-pointer text-black hover:bg-gray-200 p-2 rounded-full' onClick={() => setShowCode(false)}>
                 <FaArrowLeft />
             </div>
             <h1 className="text-center text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-fuchsia-500 mb-4">

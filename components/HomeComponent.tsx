@@ -35,7 +35,7 @@ function HomeComponent() {
   return (
     <div className='relative lg:flex text-white'>
         <ItemsComponent />
-        {showCheckout && <div className='p-4'><Checkout /> </div>}
+        {showCheckout && <div className='p-4 md:p-0'><Checkout /> </div>}
     </div>
   )
 }

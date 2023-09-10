@@ -7,9 +7,9 @@ function PaymentType() {
     const {setShowCode, showCode, setPaymentType} = useContextState()
 
   return (
-      <div className='border-2 h-full p-4 flex justify-center items-center'>
-          <div className='w-fit absolute top-10 left-10 cursor-pointer hover:bg-gray-200 p-2 rounded-full' onClick={() => setPaymentType(false)}>
-              <FaArrowLeft />
+      <div className='border-2 h-full flex justify-center items-center relative'>
+          <div className='w-fit absolute top-3 left-4 cursor-pointer hover:bg-gray-200 text-black p-2 rounded-full' onClick={() => setPaymentType(false)}>
+              <FaArrowLeft className='text-xl'/>
           </div>
           {showCode?
             <ScanCodeView />
