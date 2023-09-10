@@ -75,56 +75,100 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
 
-  const accountField = req.body?.account;
-  if (!accountField) throw new Error('missing account');
+  // const accountField = req.body?.account;
+  // if (!accountField) throw new Error('missing account');
 
-  const sender = new PublicKey(accountField);
+  // const sender = new PublicKey(accountField);
 
-  const merchant = Keypair.fromSecretKey(
+  // const merchant = Keypair.fromSecretKey(
+  //   new Uint8Array(JSON.parse("[226,230,33,166,183,94,221,240,76,0,177,119,22,166,134,93,69,185,83,121,221,13,229,219,18,55,91,84,86,112,53,87,139,130,97,105,159,216,5,167,211,57,175,154,105,195,156,4,68,100,253,224,35,32,204,44,126,175,226,176,146,254,206,226]")),
+  // );
+
+
+  // // Build Transaction
+  // const ix = SystemProgram.transfer({
+  //   fromPubkey: sender,
+  //   toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
+  //   lamports: 133700000
+  // })
+
+  // let transaction = new Transaction();
+  // transaction.add(ix);
+
+  // const connection = new Connection("https://api.devnet.solana.com")
+  // const bh = await connection.getLatestBlockhash();
+  // transaction.recentBlockhash = bh.blockhash;
+  // transaction.feePayer = merchant.publicKey;
+
+  // // for correct account ordering 
+  // transaction = Transaction.from(transaction.serialize({
+  //   verifySignatures: false,
+  //   requireAllSignatures: false,
+  // }));
+
+  // transaction.sign(merchant);
+  // // console.log(base58.encode(transaction.signature));
+
+  // // airdrop 1 SOL just for fun
+  // connection.requestAirdrop(sender, 1000000000);
+
+  // // Serialize and return the unsigned transaction.
+  // const serializedTransaction = transaction.serialize({
+  //   verifySignatures: false,
+  //   requireAllSignatures: false,
+  // });
+
+  // const base64Transaction = serializedTransaction.toString('base64');
+  // const message = 'Thank you for using AndyPay';
+
+  // // const strategy : TransactionConfirmationStrategy =  {
+  // //   signature: transaction.
+  // // }
+  // // connection.confirmTransaction();
+
+  // res.status(200).send({ transaction: base64Transaction, message });
+
+
+  try {
+    // Initialize Solana connection
+    const connection = new Connection("https://api.devnet.solana.com");
+
+    // Get the sender's public key from the request body
+    const accountField = req.body?.account;
+    if (!accountField) throw new Error('missing account');
+    const sender = new PublicKey(accountField);
+
+    // Securely get the merchant's secret key (Do not hardcode)
+    const merchant = Keypair.fromSecretKey(
     new Uint8Array(JSON.parse("[226,230,33,166,183,94,221,240,76,0,177,119,22,166,134,93,69,185,83,121,221,13,229,219,18,55,91,84,86,112,53,87,139,130,97,105,159,216,5,167,211,57,175,154,105,195,156,4,68,100,253,224,35,32,204,44,126,175,226,176,146,254,206,226]")),
   );
+    // const merchant = Keypair.fromSecretKey(new Uint8Array(merchantSecretKey));
 
+    // Build Transaction
+    const ix = SystemProgram.transfer({
+      fromPubkey: sender,
+      toPubkey: new PublicKey("APaynxjiBJBrEX5rqYBTbmSFN4NhPg6TKzkTmhG7URoX"),
+      lamports: 133700000
+    });
 
-  // Build Transaction
-  const ix = SystemProgram.transfer({
-    fromPubkey: sender,
-    toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
-    lamports: 133700000
-  })
+    let transaction = new Transaction();
+    transaction.add(ix);
 
-  let transaction = new Transaction();
-  transaction.add(ix);
+    // Get the latest blockhash
+    const bh = await connection.getLatestBlockhash();
+    transaction.recentBlockhash = bh.blockhash;
+    transaction.feePayer = merchant.publicKey;
 
-  const connection = new Connection("https://api.devnet.solana.com")
-  const bh = await connection.getLatestBlockhash();
-  transaction.recentBlockhash = bh.blockhash;
-  transaction.feePayer = merchant.publicKey;
+    // Sign the transaction
+    transaction.sign(merchant);
 
-  // for correct account ordering 
-  transaction = Transaction.from(transaction.serialize({
-    verifySignatures: false,
-    requireAllSignatures: false,
-  }));
+    // Send the transaction to the Solana network and confirm it
+    const txid = await sendAndConfirmTransaction(connection, transaction, [merchant]);
 
-  transaction.sign(merchant);
-  // console.log(base58.encode(transaction.signature));
-
-  // airdrop 1 SOL just for fun
-  connection.requestAirdrop(sender, 1000000000);
-
-  // Serialize and return the unsigned transaction.
-  const serializedTransaction = transaction.serialize({
-    verifySignatures: false,
-    requireAllSignatures: false,
-  });
-
-  const base64Transaction = serializedTransaction.toString('base64');
-  const message = 'Thank you for using AndyPay';
-
-  // const strategy : TransactionConfirmationStrategy =  {
-  //   signature: transaction.
-  // }
-  // connection.confirmTransaction();
-
-  res.status(200).send({ transaction: base64Transaction, message });
+    // Respond with the transaction ID
+    res.status(200).send({ message: 'Transaction successful', txid });
+  } catch (error) {
+    console.error('Error creating transaction:', error);
+    res.status(500).send({ message: 'Error creating transaction' });
+  }
 };
