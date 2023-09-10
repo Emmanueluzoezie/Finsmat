@@ -50,7 +50,7 @@ async function post(
   // Build Transaction
   const ix = SystemProgram.transfer({
     fromPubkey: sender,
-    toPubkey: new PublicKey("APaynxjiBJBrEX5rqYBTbmSFN4NhPg6TKzkTmhG7URoX"),
+    toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
     lamports: 133700000
   })
 
@@ -62,17 +62,17 @@ async function post(
   transaction.recentBlockhash = bh.blockhash;
   transaction.feePayer = merchant.publicKey;
 
+  // airdrop 1 SOL just for fun
+  connection.requestAirdrop(sender, 1000000000);
+
   // for correct account ordering 
   transaction = Transaction.from(transaction.serialize({
     verifySignatures: false,
     requireAllSignatures: false,
   }));
 
-  transaction.sign(merchant);
+  // transaction.sign(merchant);
   // console.log(base58.encode(transaction.signature));
-
-  // airdrop 1 SOL just for fun
-  connection.requestAirdrop(sender, 1000000000);
 
   // Serialize and return the unsigned transaction.
   const serializedTransaction = transaction.serialize({

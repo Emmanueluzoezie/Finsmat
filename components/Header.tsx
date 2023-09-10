@@ -7,8 +7,6 @@ function Header() {
     const { showCheckout, setShowCheckout } = useContextState()
     const { data: session } = useSession()
 
-    console.log(session)
-
   return (
     <div className='text-white border-gray-500 border-b-2'>
         <div className='flex justify-between p-6 md:px-10'>
