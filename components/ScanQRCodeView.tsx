@@ -11,7 +11,8 @@ function ScanCodeView() {
     const userId = 23
     const productName = "purchase item for solana bounty"
     
-    const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions?amount=${amount}&userId=${userId}&product=${productName}`;
+    // const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions?amount=${amount}&userId=${userId}&product=${productName}`;
+    const SOLANA_PAY_URL = `solana:https://solana-bounty-sigma.vercel.app/api/transactions`;
 
     useEffect(() => {
         const qr = createQR(SOLANA_PAY_URL, 250, 'white', 'black');
