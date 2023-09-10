@@ -88,7 +88,7 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
   // Build Transaction
   const ix = SystemProgram.transfer({
     fromPubkey: sender,
-    toPubkey: new PublicKey("APaynxjiBJBrEX5rqYBTbmSFN4NhPg6TKzkTmhG7URoX"),
+    toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
     lamports: 133700000
   })
 
