@@ -24,64 +24,52 @@ const get = async (req: NextApiRequest,
   });
 };
 
-async function post(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  // Account provided in the transaction request body by the wallet.
-  const accountField = req.body?.account;
-  if (!accountField) throw new Error('missing account');
+async function post(req: NextApiRequest, res: NextApiResponse ) {
+  try {
+    const accountField = req.body?.account;
+    if (!accountField) {
+      res.status(400).send({ error: 'Missing account' });
+      return;
+    }
 
-  const sender = new PublicKey(accountField);
+    const sender = new PublicKey(accountField);
+    const ix = SystemProgram.transfer({
+      fromPubkey: sender,
+      toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
+      lamports: 133700000,
+    });
 
-  // const merchant = Keypair.fromSecretKey(
-  //   new Uint8Array(JSON.parse("[226,230,33,166,183,94,221,240,76,0,177,119,22,166,134,93,69,185,83,121,221,13,229,219,18,55,91,84,86,112,53,87,139,130,97,105,159,216,5,167,211,57,175,154,105,195,156,4,68,100,253,224,35,32,204,44,126,175,226,176,146,254,206,226]")),
-  // );
+    const transaction = new Transaction();
+    transaction.add(ix);
+
+    const connection = new Connection("https://api.devnet.solana.com");
+    const bh = await connection.getLatestBlockhash();
+    transaction.recentBlockhash = bh.blockhash;
+    transaction.feePayer = sender;
+
+    await connection.requestAirdrop(sender, 1000000000);
+
+    // TODO: Sign the transaction here before sending it
+    // transaction.sign(...);
+
+    const serializedTransaction = transaction.serialize({
+      verifySignatures: false,
+      requireAllSignatures: false,
+    });
 
 
-  // Build Transaction
-  const ix = SystemProgram.transfer({
-    fromPubkey: sender,
-    toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
-    lamports: 133700000
-  })
+    const base64Transaction = serializedTransaction.toString('base64');
+    const message = 'Thank you for using Jonuel pay';
 
-  let transaction = new Transaction();
-  transaction.add(ix);
+    // const strategy : TransactionConfirmationStrategy =  {
+    //   signature: transaction.
+    // }
+    // connection.confirmTransaction();
 
-  const connection = new Connection("https://api.devnet.solana.com")
-  const bh = await connection.getLatestBlockhash();
-  transaction.recentBlockhash = bh.blockhash;
-  transaction.feePayer = sender;
-
-  // airdrop 1 SOL just for fun
-  connection.requestAirdrop(sender, 1000000000);
-
-  // for correct account ordering 
-  transaction = Transaction.from(transaction.serialize({
-    verifySignatures: false,
-    requireAllSignatures: false,
-  }));
-
-  // transaction.sign(merchant);
-  // console.log(base58.encode(transaction.signature));
-
-  // Serialize and return the unsigned transaction.
-  const serializedTransaction = transaction.serialize({
-    verifySignatures: false,
-    requireAllSignatures: false,
-  });
-
-  const base64Transaction = serializedTransaction.toString('base64');
-  const message = 'Thank you for using Jonuel';
-
-  // const strategy : TransactionConfirmationStrategy =  {
-  //   signature: transaction.
-  // }
-  // connection.confirmTransaction();
-
-  res.status(200).send({ transaction: base64Transaction, message });
-
+    res.status(200).send({ transaction: base64Transaction, message });
+  } catch (error) {
+    console.log("an error occurred", error)
+  }
 }
 
 
