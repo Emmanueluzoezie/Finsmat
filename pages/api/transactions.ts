@@ -39,7 +39,7 @@ async function post(
 
   const ix = SystemProgram.transfer({
     fromPubkey: sender,
-    toPubkey: new PublicKey("2eeLQxYpuwpdMxsqCSpYazgxSqdy3wS6DAosATtezHHR"),
+    toPubkey: new PublicKey("5uKAeWU6nsYawNjoPfw8ivB6zoXVFugpMaCG57nSP9qu"),
     lamports: 133700000
   });
 
