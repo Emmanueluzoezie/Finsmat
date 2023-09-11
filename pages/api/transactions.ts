@@ -43,6 +43,7 @@ async function post(
     lamports: 133700000
   });
 
+  
   let transaction = new Transaction();
   transaction.add(ix);
 
@@ -50,6 +51,9 @@ async function post(
   const bh = await connection.getLatestBlockhash();
   transaction.recentBlockhash = bh.blockhash;
   transaction.feePayer = merchant.publicKey;
+
+  // Airdrop 1 SOL
+  await connection.requestAirdrop(sender, 1000000000);
 
   transaction = Transaction.from(transaction.serialize({
     verifySignatures: false,
@@ -66,9 +70,6 @@ async function post(
     res.status(400).send({ message: `Transaction simulation failed: ${simulationResult.value.err}` });
     return;
   }
-
-  // Airdrop 1 SOL
-  await connection.requestAirdrop(sender, 1000000000);
 
   const serializedTransaction = transaction.serialize({
     verifySignatures: false,
