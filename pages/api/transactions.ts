@@ -80,3 +80,16 @@ async function post(
 
   res.status(200).send({ transaction: base64Transaction, message });
 }
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<GetData | PostData>
+) {
+  if (req.method == "GET") {
+    console.log("received GET request");
+    return get(req, res);
+  } else if (req.method == "POST") {
+    console.log("received POST request");
+    return await post(req, res);
+  }
+}
