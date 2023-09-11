@@ -17,8 +17,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='bg-[#040008] h-screen text-white'>
-      <Header />
+      <main className='bg-[#040008] flex overflow-scroll flex-col h-screen text-white'>
+        <div className='sticky top-0 z-50 bg-[#040008]'>
+          <Header />
+        </div>
       <HomeComponent />
       <Footer />
     </main>

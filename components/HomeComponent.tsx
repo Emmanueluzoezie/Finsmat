@@ -6,36 +6,10 @@ import ItemsComponent from './ItemsComponent'
 function HomeComponent() {
     const {setShowCheckout, showCheckout} = useContextState()
 
-    useEffect(() => {
-        // Initial check
-        if (window.innerWidth > 1000) {
-            setShowCheckout(true);
-        } else {
-            setShowCheckout(false);
-        }
-
-        // Listener for window resize
-        const handleResize = () => {
-            if (window.innerWidth > 1000) {
-                setShowCheckout(true);
-            } else {
-                setShowCheckout(false);
-            }
-        };
-
-        // Attach the listener
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
   return (
-    <div className='relative lg:flex text-white'>
+    <div className='relative text-white flex-1 '>
         <ItemsComponent />
-        {showCheckout && <div className='p-4 md:p-0'><Checkout /> </div>}
+        {showCheckout && <div className=""><Checkout /> </div>}
     </div>
   )
 }
