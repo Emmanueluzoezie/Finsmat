@@ -15,8 +15,8 @@ function get(
   req: NextApiRequest,
   res: NextApiResponse<GetData>
 ) {
-  const label = 'Payment your item';
-  const icon = 'https://avatars.githubusercontent.com/u/92437260?v=4';
+  const label = 'Payment your an item purchase';
+  const icon = 'https://avatars.githubusercontent.com/u/87155142?s=400&u=cd92f3bdaf269e90b6526916aeae323453ba086e&v=4';
 
   res.status(200).send({
     label,
@@ -77,7 +77,7 @@ async function post(
   });
 
   const base64Transaction = serializedTransaction.toString('base64');
-  const message = 'Thank you for using AndyPay';
+  const message = 'Thank you for purchasing an item';
 
   res.status(200).send({ transaction: base64Transaction, message });
 }
