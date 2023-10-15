@@ -24,7 +24,7 @@ FinSmat is designed to help African students become better at finance and know h
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/YourUsername/FinSmat.git`
+1. Clone the repository: `git clone https://github.com/Emmanueluzoezie/FinSmat.git`
 
 2. Install the required dependencies: `npm install`
 
@@ -36,7 +36,7 @@ FinSmat is designed to help African students become better at finance and know h
 
 - Visit the application in your web browser at (https://solana-project-wss7.vercel.app/)
   
-- Visit the application in your web browser after cloning the repostory `http://localhost:3000`
+- Visit the application in your web browser after cloning the repository `http://localhost:3000`
 
 - Sign in to FinSmat to create a Solana wallet address and start earning cryptocurrency rewards by participating in the quiz game.
 
@@ -58,8 +58,8 @@ If you want to contribute to this project, please follow these steps:
 ## Contact
 
 - Email: [OurEmail](financesmartapp@gmail.com)
-- GitHub: [OurGitHubProfile](https://github.com/YourUsername)
-- Twitter: [@OurTwitterHandle](https://twitter.com/YourTwitterHandle)
+- GitHub: [OurGitHubProfile](https://github.com/Emmanueluzoezie)
+- Twitter: [@OurTwitterHandle](https://twitter.com/Finsmat)
 - Twitter: [@OurInstagramHandle](https://instagram.com/finsmat_app?igshid=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr)
 
 Feel free to reach out if you have any questions or suggestions!
