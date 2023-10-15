@@ -26,11 +26,11 @@ FinSmat is designed to help African students become better at finance and know h
 
 1. Clone the repository: `git clone https://github.com/Emmanueluzoezie/FinSmat.git`
 
-2. Install the required dependencies: `npm install`
+2. Install the required dependencies: `yarn install`
 
 3. Configure Solana: Set up your Solana wallet and API keys. Refer to the [Solana documentation](https://docs.solana.com/) for instructions.
 
-4. Run the application: `npm run dev`
+4. Run the application: `yarn run dev`
 
 ## Usage
 
